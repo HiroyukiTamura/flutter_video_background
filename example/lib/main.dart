@@ -1,7 +1,5 @@
+import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_video_background/flutter_video_background.dart';
 
 void main() {
@@ -13,46 +11,66 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  static const _MEDIA_URL =
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterVideoBackground.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive:
+        try {
+          FlutterVideoBackground.startPlayBackGround(
+            url: _MEDIA_URL,
+            isLiveStream: false,
+            title: 'title',
+            subtitle: 'subtitle',
+            iconUrl: 'https://d27ea4kkb8flj9.cloudfront.net/122873_1_L.jpg',
+            position: 0.toString(),
+          );
+        } catch (e) {
+          print(e);
+        }
+        break;
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        break;
+      case AppLifecycleState.resumed:
+        try {
+          FlutterVideoBackground.stopBackGround(true).then((position) {
+            debugPrint(position.toString());
+          });
+        } catch (e) {
+          print(e);
+        }
+        break;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
+      ),
+      body: BetterPlayer.network(
+        _MEDIA_URL,
+        betterPlayerConfiguration: const BetterPlayerConfiguration(
+          aspectRatio: 16 / 9,
         ),
       ),
-    );
-  }
+    ),
+  );
 }
