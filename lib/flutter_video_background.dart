@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_video_background/model/replay_data.dart';
 
@@ -9,13 +8,13 @@ class FlutterVideoBackground {
       MethodChannel('flutter_video_background/main');
 
   static Future<void> startPlayBackGround({
-    @required String url,
-    @required bool isLiveStream,
-    String position,
-    String iconUrl,
-    String cookie,
-    String title,
-    String subtitle,
+    required String url,
+    required bool isLiveStream,
+    String position = '0',
+    String iconUrl = '',
+    String cookie = '',
+    String title = '',
+    String subtitle = '',
   }) async {
     final positionSafe =
         int.tryParse(position)?.isNegative != false ? 0 : position;

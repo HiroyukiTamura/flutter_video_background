@@ -18,12 +18,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 
@@ -38,7 +38,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             title: 'title',
             subtitle: 'subtitle',
             iconUrl: 'https://d27ea4kkb8flj9.cloudfront.net/122873_1_L.jpg',
-            position: 0.toString(),
           );
         } catch (e) {
           print(e);
