@@ -63,7 +63,7 @@ flutter {
 }
 
 dependencies {
-    def exoplayer_version = '2.12.1'
+    def exoplayer_version = '2.13.2'
     api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.4.3")
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android"
