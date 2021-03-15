@@ -1,24 +1,23 @@
-import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'replay_data.freezed.dart';
 
 @freezed
-abstract class ReplyData with _$ReplyData {
+class ReplyData with _$ReplyData {
   const factory ReplyData({
-    @required Duration position,
-    @required bool wasPlaying,
+    required bool wasPlaying,
+    Duration? position,
   }) = _ReplyData;
 
   factory ReplyData.fromReply(dynamic map) {
-    final positionStr = map['position'] as String;
-    final wasPlayingStr = map['wasPlaying'] as String;
+    final positionStr = map['position'] as String?;
+    final wasPlayingStr = map['wasPlaying'] as String?;
 
     return ReplyData(
       position: Duration(
-        milliseconds: positionStr.toPositiveInt(),
+        milliseconds: positionStr?.toPositiveInt() ?? 0,
       ),
-      wasPlaying: wasPlayingStr.toBool(),
+      wasPlaying: wasPlayingStr?.toBool() ?? false,
     );
   }
 }
@@ -34,7 +33,7 @@ extension on String {
   }
 
   int toPositiveInt() {
-    final position = this == null ? 0 : int.parse(this);
+    final position = int.parse(this);
     return position.isNegative ? 0 : position;
   }
 }
