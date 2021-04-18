@@ -12,8 +12,8 @@ import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.media.MediaBrowserServiceCompat
+import com.example.flutter_video_background.MusicServiceConnection.MediaBrowserConnectionCallback
 import com.example.flutter_video_background.extensions.id
 
 /**

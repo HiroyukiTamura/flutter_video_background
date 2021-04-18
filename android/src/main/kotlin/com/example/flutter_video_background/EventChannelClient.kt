@@ -1,6 +1,5 @@
 package com.example.flutter_video_background
 
-import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 

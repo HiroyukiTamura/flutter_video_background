@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  better_player: ^0.0.62
+  better_player: ^0.0.64
 
   flutter_video_background:
     # When depending on this package from a real application you should use:

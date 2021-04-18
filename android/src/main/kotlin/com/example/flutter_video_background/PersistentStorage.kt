@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
-import android.util.Log
 import androidx.annotation.DimenRes
 import androidx.core.content.edit
 import com.bumptech.glide.Glide
